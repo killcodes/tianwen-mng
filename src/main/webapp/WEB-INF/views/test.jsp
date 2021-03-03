@@ -3,6 +3,5 @@
 <html>
 <body>
 <div>用户名：${userName}</div>
-<div>密码：${password}</div>
 </body>
 </html>

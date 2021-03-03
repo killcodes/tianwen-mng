@@ -2,10 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd ">
 
     <context:component-scan base-package="com.springmvc.service" />
+    <context:component-scan base-package="com.springmvc.dao" />
 
     <!--<bean id="springContextUtls" class="com.springmvc.context.SpringContextUtils"></bean>-->
 
@@ -15,5 +17,70 @@
 
     <!--<bean id="userService" class="com.springmvc.service.UserServiceImpl" >-->
     <!--</bean>-->
+    <!-- 配置SessionFactory -->
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:com/springmvc/dao/mapper/xml/*.xml"/>
+        <property name="typeAliasesPackage" value="com.springmvc.dao.entity.*"/>
+<!--        <property name="configLocation" value="classpath:conf/mybatis/mybatis-config.xml"/>-->
+<!--        <property name="globalConfig" ref="globalConfig"/>-->
+        <property name="plugins">
+            <array>
+                <ref bean="mybatisPlusInterceptor"/>
+            </array>
+        </property>
+    </bean>
+
+<!--    <bean id="configuration" class="com.baomidou.mybatisplus.core.MybatisConfiguration">-->
+<!--        <property name="useDeprecatedExecutor" value="false"/>-->
+<!--    </bean>-->
+
+    <bean id="mybatisPlusInterceptor" class="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">
+        <property name="interceptors">
+            <list>
+                <ref bean="paginationInnerInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="paginationInnerInterceptor"
+          class="com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor">
+        <constructor-arg name="dbType" value="MYSQL"/>
+    </bean>
+
+    <!-- MyBatis 动态扫描  -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.springmvc.dao.mapper"/>
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:mysql://192.168.1.7:3306/tianwen?characterEncoding=utf8&amp;serverTimezone=UTC"/>
+        <property name="username" value="tianwen"/>
+        <property name="password" value="123456a"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <!-- 最大连接数 -->
+        <property name="maxActive" value="20" />
+        <property name="minIdle" value="3"/>
+        <!-- 初始化连接数 -->
+        <property name="initialSize" value="5" />
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+
+
+<!--    <bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">-->
+<!--        <property name="dbConfig" ref="dbConfig"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="dbConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig">-->
+<!--        <property name="keyGenerator" ref="keyGenerator"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="keyGenerator" class="com.baomidou.mybatisplus.extension.incrementer."/>-->
 
 </beans>

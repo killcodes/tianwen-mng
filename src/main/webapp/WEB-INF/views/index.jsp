@@ -75,6 +75,7 @@
         </div>
 
     </form>
+    <div>${errorMessage}</div>
 
 </div>
 </body>
