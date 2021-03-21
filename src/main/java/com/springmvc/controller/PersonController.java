@@ -1,32 +1,21 @@
 package com.springmvc.controller;
 
-import com.springmvc.dao.entity.UserInfo;
-import com.springmvc.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-public class LoginController {
+@RequestMapping("/person")
+public class PersonController {
 
-    @Resource
-    private UserServiceImpl userService;
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(String userName, String password, Model model){
-        UserInfo userInfo = userService.searchUserInfo(userName, password);
-        if (null == userInfo){
-            model.addAttribute("errorMessage","用户名或者密码错误");
-            return "index";
-        }
-        model.addAttribute("userName", userInfo.getUserName());
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public String queryPersons(String name, String workId, Model model){
         List<Map<String, String>> result = new ArrayList<>(2);
         Map<String, String> one = new HashMap<>(8);
         one.put("name", "张三");

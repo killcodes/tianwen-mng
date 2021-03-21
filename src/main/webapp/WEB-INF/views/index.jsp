@@ -41,9 +41,8 @@
             background-color: #aba6d6;
         }
     </style>
-    <%--<script  src='<%=basePath%>static/jquery/jquery-3.5.1.js'></script>--%>
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-9
+    <script  src='<%=basePath%>/js/jquery-3.5.1.js'></script>
+<%--    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>--%>
     <script type="text/javascript">
         $(function(){
 
