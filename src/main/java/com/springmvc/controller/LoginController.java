@@ -28,13 +28,6 @@ public class LoginController {
         }
         model.addAttribute("userName", userInfo.getUserName());
         List<Map<String, String>> result = new ArrayList<>(2);
-        Map<String, String> one = new HashMap<>(8);
-        one.put("name", "张三");
-        one.put("workId", "1043453");
-        one.put("birthDay", "1991-01-01");
-        one.put("status", "在职");
-        one.put("createTime", "2021-01-01 21:00:00");
-        result.add(one);
         model.addAttribute("personList",result);
 
         return "mng";

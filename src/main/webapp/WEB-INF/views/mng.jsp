@@ -205,30 +205,25 @@
         <div class="content">
             <div class="flex condition">
                 <div class="padding-top-10 padding-right-5">姓名：</div>
-                <div><input class="input" placeholder="请输入姓名" /></div>
-                <div class="padding-top-10 padding-right-5 margin-left-30">工号：</div>
-                <div><input class="input" placeholder="请输入工号" /></div>
-                <input type="button" class="btn search" value="查询" />
+                <div><input class="input" id="name" placeholder="请输入姓名" /></div>
+                <div  class="padding-top-10 padding-right-5 margin-left-30">工号：</div>
+                <div><input id="workId" class="input" placeholder="请输入工号" /></div>
+                <input type="button" id="search" class="btn search" value="查询" />
             </div>
             <div class="condition data">
                 <div>
-                    <table class="table"  border="0" cellspacing="1px">
-                        <tr>
-                            <th>姓名</th>
-                            <th>工号</th>
-                            <th>出生日期</th>
-                            <th>状态</th>
-                            <th>创建时间</th>
-                        </tr>
-                        <c:forEach var="item" items="${personList}" varStatus="status">
-                            <tr>
-                                <td>${item.name}</td>
-                                <td>${item.workId}</td>
-                                <td>${item.birthDay}</td>
-                                <td>${item.status}</td>
-                                <td>${item.createTime}</td>
-                            </tr>
-                        </c:forEach>
+                    <table class="table"  border="0" cellspacing="1px" id="data">
+
+
+<%--                        <c:forEach var="item" items="${personList}" varStatus="status">--%>
+<%--                            <tr>--%>
+<%--                                <td>${item.name}</td>--%>
+<%--                                <td>${item.workId}</td>--%>
+<%--                                <td>${item.birthDate}</td>--%>
+<%--                                <td>${item.state}</td>--%>
+<%--                                <td>${item.createTime}</td>--%>
+<%--                            </tr>--%>
+<%--                        </c:forEach>--%>
                     </table>
                 </div>
 
@@ -241,7 +236,52 @@
 
 
 </div>
+<script  src='<%=basePath%>/js/jquery-3.5.1.js'></script>
+<script  src='http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js'></script>
+<script type="text/javascript">
+    $(function(){
 
+        $('#search').click(function () {
+            var name = $('#name').val();
+            var workId = $('#workId').val();
+
+            $.ajax({
+                url: '<%=basePath%>' + 'person/list',
+                async: false,
+                dataType: 'json',
+                type: 'post',
+                data:{name:name, workId:workId},
+                success:function (data){
+                    if (!data || data.length ==0){
+                        return
+                    }
+                    var html = '<tr>\n' +
+                        '                            <th>姓名</th>\n' +
+                        '                            <th>工号</th>\n' +
+                        '                            <th>出生日期</th>\n' +
+                        '                            <th>状态</th>\n' +
+                        '                            <th>创建时间</th>\n' +
+                        '                        </tr>';
+                    for (i = 0; i < data.length; i++){
+                        var person = data[i];
+                        var stateTmp = person.state == 1 ? '在职' : '离职';
+                        var birthDateTmp = moment(person.birthDate).format('YYYY-MM-DD');
+                        html += '<tr><td>'
+                            + person.name + '</td><td>'
+                            + person.workId + '</td><td>'
+                            + birthDateTmp + '</td><td>'
+                            + stateTmp + '</td><td>'
+                            + person.createTime + '</td></tr>'
+                    }
+                    $('#data').html(html)
+                }
+            })
+
+
+        });
+
+    });
+</script>
 </body>
 </html>
 
