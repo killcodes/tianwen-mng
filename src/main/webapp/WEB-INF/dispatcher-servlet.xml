@@ -21,6 +21,7 @@
 
     <mvc:resources mapping="/images/**" location="/statics/images/"></mvc:resources>
     <mvc:resources mapping="/js/**" location="/statics/js/"></mvc:resources>
+    <mvc:resources mapping="/select/**" location="/statics/select/"></mvc:resources>
 
 <!--    <mvc:default-servlet-handler />-->
 

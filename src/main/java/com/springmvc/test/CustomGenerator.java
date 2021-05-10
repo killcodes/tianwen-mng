@@ -34,7 +34,7 @@ public class CustomGenerator {
         //策略配置
         StrategyConfig strategy = new StrategyConfig();
         // 需要生成的表
-        strategy.setInclude(new String[] { "user_info" });
+        strategy.setInclude(new String[] { "person" });
         strategy.setEntityTableFieldAnnotationEnable(true);
 //        strategy.setTablePrefix("library_");// 此处可以修改为您的表前缀
         // 表名生成策略
