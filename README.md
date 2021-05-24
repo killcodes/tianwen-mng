@@ -23,6 +23,14 @@ MyBatis Plus:对MyBatis进行了一层封装，封装了通用的数据库操作
   3.可以节约资源和时间；
   
   代码地址：https://github.com/killcodes/tianwen-mng.git
+  
+  运行准备：
+  
+  1.创建数据库：tianwen;
+  
+  2.然后在tianwen数据库中执行tianwen.sql中的sql；
+  
+  3.默认登录账号: test/123456
 
 
 
