@@ -320,6 +320,9 @@
             type: 'post',
             data:{name:name, workId:workId},
             success:function (data){
+                if (data.errorMessage && data.errorMessage == 'no-auth'){
+                    window.location.href = '<%=basePath %>'
+                }
                 if (!data || data.length ==0){
                     return
                 }

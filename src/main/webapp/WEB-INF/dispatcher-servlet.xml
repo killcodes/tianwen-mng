@@ -23,28 +23,17 @@
     <mvc:resources mapping="/js/**" location="/statics/js/"></mvc:resources>
     <mvc:resources mapping="/select/**" location="/statics/select/"></mvc:resources>
 
-<!--    <mvc:default-servlet-handler />-->
-
-<!--    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
-<!--        <property name="urlMap">-->
-<!--            <map>-->
-<!--                <entry key="/images/**" value="myResourceHandler" />-->
-<!--            </map>-->
-<!--        </property>-->
-<!--        <property name="order" value="100000" />-->
-<!--    </bean>-->
-
-
-<!--    <bean id="myResourceHandler" name="myResourceHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">-->
-<!--        <property name="locations" value="/statics/images/*.png" />-->
-<!--        <property name="supportedMethods">-->
-<!--            <list>-->
-<!--                <value>GET</value>-->
-<!--                <value>HEAD</value>-->
-<!--                <value>POST</value>-->
-<!--            </list>-->
-<!--        </property>-->
-<!--    </bean>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/select/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/no-auth"/>
+            <bean class="com.springmvc.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 配置视图解析器 如何把handler 方法返回值解析为实际的物理视图 -->
     <!--prefix和suffix：查找视图页面的前缀和后缀（前缀[逻辑视图名]后缀）， -->

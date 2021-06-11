@@ -22,7 +22,7 @@ MyBatis Plus:对MyBatis进行了一层封装，封装了通用的数据库操作
   2.创建数据连接是小消耗资源和时间的；
   3.可以节约资源和时间；
   
-  代码地址：https://github.com/killcodes/tianwen-mng.git
+  代码地址：https://github.com/killcodes/tianwen-mng
   
   运行准备：
   
@@ -31,6 +31,13 @@ MyBatis Plus:对MyBatis进行了一层封装，封装了通用的数据库操作
   2.然后在tianwen数据库中执行tianwen.sql中的sql；
   
   3.默认登录账号: test/123456
+  
+  
+  针对请求校验用户信息，将没有登录的用户强制让他们登录，避免了信息的泄漏：
+  1.Session:用于存放当次会话信息
+  2.拦截器
+  
+  请求 --> DispatcherServlet --> Controller
 
-
+  拦截器执行顺序：preHandle --> controller --> postHandle --> afterCompletion
 
