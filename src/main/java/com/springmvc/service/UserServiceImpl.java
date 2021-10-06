@@ -15,6 +15,8 @@ public class UserServiceImpl {
     private IUserInfoService userInfoService;
 
     public UserInfo searchUserInfo(String userName, String password){
+        System.out.println("=========执行登录方法============");
+        int a = Integer.parseInt("dsds");
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("user_name", userName);
         wrapper.eq("password", password);
